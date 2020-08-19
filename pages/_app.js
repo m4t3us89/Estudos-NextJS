@@ -34,10 +34,22 @@ function App({ Component, pageProps }) {
       </Head>
 
       <nav className={styles.nav}>
-        <b>PROJETOS</b>
+        <ul className={styles.menu}>
+          <li>
+            <Link href="/">
+              <a>PROJETOS</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/quem-sou">
+              <a>QUEM SOU ?</a>
+            </Link>
+          </li>
+        </ul>
       </nav>
 
       <main className={styles.main}>
+        <div id="teste"></div>
         <Component {...pageProps} />
       </main>
 
