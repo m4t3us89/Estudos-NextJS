@@ -33,6 +33,10 @@ function App({ Component, pageProps }) {
         ></link>
       </Head>
 
+      <nav className={styles.nav}>
+        <b>PROJETOS</b>
+      </nav>
+
       <main className={styles.main}>
         <Component {...pageProps} />
       </main>

@@ -5,37 +5,89 @@ import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const [repositorios, setRepositorio] = useState([]);
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
-    async function listarRepositorios() {
+    async function consultarUsuario() {
       try {
-        const { data } = await api.get("users/m4t3us89/repos");
-        console.log(data);
-        setRepositorio(data);
+        const { data } = await api.get("users/m4t3us89");
+        console.log("User", data);
+        setUsuario(data);
       } catch (err) {
         console.log("Err", err);
       }
     }
+
+    async function listarRepositorios() {
+      try {
+        const { data } = await api.get("users/m4t3us89/repos");
+        console.log("Rep", data);
+        setRepositorio(data);
+      } catch (err) {
+        console.log("Err", err);
+      } finally {
+        consultarUsuario();
+      }
+    }
+
     listarRepositorios();
   }, []);
 
   return (
-    <div className={styles.cards}>
-      {repositorios.map((repositorio) => (
-        <div className="card">
-          <img
-            className="card-img-top"
-            src={repositorio.owner.avatar_url}
-            alt="Card image cap"
-          ></img>
-          <div className="card-body">
-            <p className="card-text">{repositorio.name}</p>
-            <a href="#" class="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
+    <div className={styles.homeContainer}>
+      <div
+        className="card"
+        style={{ maxWidth: "310px", width: "100%", height: "100%" }}
+      >
+        <img
+          className="card-img-top"
+          src={usuario?.avatar_url}
+          alt="Card image cap"
+          style={{ height: "300px", width: "300px" }}
+        />
+        <div className="card-body" style={{ textAlign: "center" }}>
+          <h5 className="card-title">{usuario?.name}</h5>
+          <p className="card-text">{usuario?.bio}</p>
+          <a
+            href={usuario?.html_url}
+            target="blank"
+            className="btn btn-primary"
+            style={{ width: "100%" }}
+          >
+            Ver Perfil
+          </a>
         </div>
-      ))}
+      </div>
+
+      <div className={styles.cards}>
+        {repositorios.map((repositorio) => (
+          <div className="card">
+            <div className="card-body">
+              <h5 className="card-title">{repositorio.name} </h5>
+              <small className="text-muted">{repositorio.language}</small>
+              <p className="card-text">
+                {repositorio.description
+                  ? repositorio.description
+                  : "Não há descrição"}
+              </p>
+              <br />
+              <a
+                href={repositorio.html_url}
+                target="blank"
+                className="btn btn-secondary btn-sm"
+                style={{
+                  width: "85%",
+                  position: "absolute",
+                  bottom: 0,
+                  margin: "20px 0px 10px 0px",
+                }}
+              >
+                Ver Projeto
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

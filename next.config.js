@@ -1,5 +1,5 @@
 module.exports = {
   env: {
-    API: "https://api.github.com/",
+    API: "http://api.github.com/",
   },
 };
