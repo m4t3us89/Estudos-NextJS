@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    BASE_URL_GITHUB: "https://api.github.com/",
-    BASE_URL_GITLAB: "https://gitlab.com/api/v4/",
+    BASE_URL_GITHUB: "http://api.github.com/",
+    BASE_URL_GITLAB: "http://gitlab.com/api/v4/",
   },
 };

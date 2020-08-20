@@ -1,9 +1,10 @@
 import axios from "axios";
 import NProgress from "nprogress";
 
-const api = axios.create(
+const api = axios
+  .create
   //baseURL: process.env.API,
-);
+  ();
 
 api.interceptors.request.use(
   function (config) {
@@ -23,11 +24,12 @@ api.interceptors.response.use(
     return response;
   },
   function (error) {
-    if (error.response.status === 403) {
-      localStorage.clear();
-      window.location.href = "/";
-      return;
-    }
+    //if (error?.response?.status === 403) {
+    //localStorage.clear();
+    //window.location.href = "/";
+    //return;
+    //}
+    NProgress.done();
     return Promise.reject(error);
   }
 );
