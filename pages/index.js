@@ -41,6 +41,8 @@ function Home() {
 
         console.log("RepGitHub", repGitHub);
 
+        setProjeto(repGitHub);
+
         const { data: repGitLab } = await api.get(
           `${baseUrlGitLab}users/2919291/projects`
         );
