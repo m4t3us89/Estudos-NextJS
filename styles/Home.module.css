@@ -113,6 +113,9 @@
   display: flex;
   gap: 20px;
   list-style: none;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 }
 
 

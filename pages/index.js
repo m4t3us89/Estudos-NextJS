@@ -57,13 +57,8 @@ function Home() {
       }
     }
 
-    async function listarInfos() {
-      await listarRepositorios();
-      await listarUsuarios();
-      console.log("entrou");
-    }
-
-    listarInfos();
+    listarRepositorios();
+    listarUsuarios();
   }, []);
 
   return (
