@@ -192,25 +192,10 @@ function Home() {
             {projetos.map((projeto, index) => (
               <div key={index} className="card">
                 <div className="card-body">
-                  <h5 className="card-title" style={{ marginBottom: 2 }}>
+                  <h5 className="card-title" style={{ marginTop: 5 }}>
                     <b>{projeto?.name}</b>
                   </h5>
-                  <small
-                    className="text-muted"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                    }}
-                  >
-                    {" "}
-                    <span
-                      dangerouslySetInnerHTML={{
-                        __html: iconesLinguagem[projeto?.language],
-                      }}
-                    ></span>
-                    {projeto?.language}
-                  </small>
+
                   <p className="card-text" style={{ marginTop: 10 }}>
                     {projeto.description
                       ? projeto.description
@@ -245,6 +230,17 @@ function Home() {
                     color: "#DCDCDC",
                   }}
                 ></i>
+                <div
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    paddingLeft: 5,
+                  }}
+                  dangerouslySetInnerHTML={{
+                    __html: iconesLinguagem[projeto?.language],
+                  }}
+                ></div>
               </div>
             ))}
           </div>
@@ -256,7 +252,6 @@ function Home() {
               padding: "10px",
             }}
           >
-            {" "}
             <small className="text-muted">PROJETOS: {projetos.length}</small>
           </div>
         </>
