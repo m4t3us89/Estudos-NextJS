@@ -4,6 +4,15 @@ import styles from "../styles/Home.module.css";
 
 const baseUrlGitLab = process.env.BASE_URL_GITLAB;
 const baseUrlGitHub = process.env.BASE_URL_GITHUB;
+const tamanhoIcone = 22;
+const iconesLinguagem = {
+  Python: `<img  src="https://img.icons8.com/dusk/${tamanhoIcone}/000000/python.png"/>`,
+  JavaScript: `<img    src="https://img.icons8.com/color/${tamanhoIcone}/000000/javascript.png"/>`,
+  TypeScript: `<img src="https://img.icons8.com/color/${tamanhoIcone}/000000/typescript.png"/>`,
+  Vue: `<img src="https://img.icons8.com/color/${tamanhoIcone}/000000/vue-js.png"/>`,
+  HTML: `<img src="https://img.icons8.com/color/${tamanhoIcone}/000000/html.png"/>`,
+  CSS: `<img src="https://img.icons8.com/ios/${tamanhoIcone}/000000/css.png"/>`,
+};
 
 function Home() {
   const [projetos, setProjeto] = useState([]);
@@ -63,13 +72,24 @@ function Home() {
     listarUsuarios();
   }, []);
 
+  function removerProjeto(index) {
+    const arr = [...projetos];
+    arr.splice(index, 1);
+    setProjeto(arr);
+  }
+
   return (
     <div className={styles.homeContainer}>
       {perfis.length > 0 ? (
         <>
           <div
             className="card"
-            style={{ maxWidth: "310px", width: "100%", height: "100%" }}
+            style={{
+              maxWidth: "310px",
+              width: "100%",
+              height: "100%",
+              maxHeight: "600px",
+            }}
           >
             <img
               style={loaded ? {} : { display: "none" }}
@@ -79,7 +99,15 @@ function Home() {
               onLoad={() => setLoaded(true)}
             />
             <div className="card-body" style={{ textAlign: "center" }}>
-              <h5 className="card-title">{perfis[0]?.name}</h5>
+              <h5 className="card-title">
+                <b>{perfis[0]?.name}</b>
+              </h5>
+              <h6>
+                <img src="https://img.icons8.com/color/20/000000/whatsapp.png" />
+                (63)98145-2573
+              </h6>
+              <h6>{perfis[0]?.blog}</h6>
+              <h6>{perfis[0]?.location}</h6>
               <p className="card-text">{perfis[0]?.bio}</p>
 
               <div
@@ -145,6 +173,17 @@ function Home() {
                     ></path>
                   </svg>
                 </a>
+
+                <a
+                  href="https://www.linkedin.com/in/allisson-mateus-06a957137"
+                  target="blank"
+                >
+                  <img src="https://img.icons8.com/color/38/000000/linkedin.png" />
+                </a>
+
+                <a href="" target="blank">
+                  <img src="https://img.icons8.com/fluent/38/000000/twitter.png" />
+                </a>
               </div>
             </div>
           </div>
@@ -153,9 +192,26 @@ function Home() {
             {projetos.map((projeto, index) => (
               <div key={index} className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{projeto?.name} </h5>
-                  <small className="text-muted">{projeto?.language}</small>
-                  <p className="card-text">
+                  <h5 className="card-title" style={{ marginBottom: 2 }}>
+                    <b>{projeto?.name}</b>
+                  </h5>
+                  <small
+                    className="text-muted"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1,
+                    }}
+                  >
+                    {" "}
+                    <span
+                      dangerouslySetInnerHTML={{
+                        __html: iconesLinguagem[projeto?.language],
+                      }}
+                    ></span>
+                    {projeto?.language}
+                  </small>
+                  <p className="card-text" style={{ marginTop: 10 }}>
                     {projeto.description
                       ? projeto.description
                       : "Não há descrição"}
@@ -164,17 +220,31 @@ function Home() {
                   <a
                     href={projeto?.html_url || projeto?.http_url_to_repo}
                     target="blank"
-                    className="btn btn-secondary btn-sm"
+                    className="btn btn-outline-info btn-sm"
                     style={{
-                      width: "85%",
+                      width: "20%",
                       position: "absolute",
                       bottom: 0,
                       margin: "20px 0px 10px 0px",
                     }}
                   >
-                    Ver Projeto
+                    <i className="fa fa-folder-open-o"></i>
                   </a>
                 </div>
+                <i
+                  onClick={function () {
+                    removerProjeto(index);
+                  }}
+                  className="fa fa-close"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    padding: 5,
+                    cursor: "pointer",
+                    color: "#DCDCDC",
+                  }}
+                ></i>
               </div>
             ))}
           </div>

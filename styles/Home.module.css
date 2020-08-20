@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 .nav{
@@ -23,6 +24,8 @@
   flex: 1;
   height: 100%;
   width: 90%;
+  display: flex;
+  justify-content: center;
 }
 
 .footer {
@@ -117,6 +120,7 @@
   align-items: center;
   font-weight: bold;
 }
+
 
 
 @media (max-width: 600px) {
