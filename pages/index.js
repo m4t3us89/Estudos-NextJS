@@ -3,35 +3,48 @@ import { useEffect, useState } from "react";
 import api from "./../services/axios";
 import styles from "../styles/Home.module.css";
 
+const baseUrlGitLab =  process.env.BASE_URL_GITLAB
+const baseUrlGitHub =  process.env.BASE_URL_GITHUB
+
+
 export default function Home() {
   const [repositorios, setRepositorio] = useState([]);
-  const [usuario, setUsuario] = useState(null);
+  const [usuario, setUsuario] = useState([]);
   const [loaded, setLoaded] = useState(true);
 
   useEffect(() => {
-    async function consultarUsuario() {
+    async function consultarUsuario(urlUser) {
       try {
-        const { data } = await api.get("users/m4t3us89");
+        const { data } = await api.get(urlUser);
         console.log("User", data);
-        setUsuario(data);
+        setUsuario(usuario ?  usuario.concat(data) : data );
+        console.log("User", usuario);
       } catch (err) {
         console.log("Err", err);
       }
     }
 
-    async function listarRepositorios() {
+    async function listarRepositorios({urlRep,urlUser}) {
       try {
-        const { data } = await api.get("users/m4t3us89/repos");
+        const { data } = await api.get(urlRep);
         console.log("Rep", data);
+     
         setRepositorio(data);
+        console.log("Repositorios", repositorios);
       } catch (err) {
         console.log("Err", err);
       } finally {
-        consultarUsuario();
+        urlUser ? consultarUsuario(urlUser) : null;
       }
     }
 
-    listarRepositorios();
+ 
+    listarRepositorios({urlRep: `${baseUrlGitHub}users/m4t3us89/repos`,urlUser: `${baseUrlGitHub}users/m4t3us89`});
+    //setTimeout(()=> listarRepositorios({urlRep: `${baseUrlGitLab}users/2919291/projects`,urlUser: /*`${baseUrlGitLab}user?username=m4t3us`*/ null}) , 5000);
+    
+  
+
+   
   }, []);
 
   return (
@@ -45,15 +58,15 @@ export default function Home() {
             <img
               style={loaded ? {} : { display: "none" }}
               className="card-img-top"
-              src={usuario?.avatar_url}
+              src={usuario[0]?.avatar_url}
               style={{ height: "300px", width: "300px" }}
               onLoad={() => setLoaded(true)}
             />
             <div className="card-body" style={{ textAlign: "center" }}>
-              <h5 className="card-title">{usuario?.name}</h5>
-              <p className="card-text">{usuario?.bio}</p>
+              <h5 className="card-title">{usuario[0]?.name}</h5>
+              <p className="card-text">{usuario[0]?.bio}</p>
               <a
-                href={usuario?.html_url}
+                href={usuario[0]?.html_url}
                 target="blank"
                 className="btn btn-primary"
                 style={{ width: "100%" }}
@@ -63,11 +76,11 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.cards}>
-            {repositorios.map((repositorio) => (
-              <div className="card">
+            {repositorios.map((repositorio,index) => (
+              <div key={index} className="card">
                 <div className="card-body">
-                  <h5 className="card-title">{repositorio.name} </h5>
-                  <small className="text-muted">{repositorio.language}</small>
+                  <h5 className="card-title">{repositorio?.name} </h5>
+                  <small className="text-muted">{repositorio?.language}</small>
                   <p className="card-text">
                     {repositorio.description
                       ? repositorio.description
@@ -75,7 +88,7 @@ export default function Home() {
                   </p>
                   <br />
                   <a
-                    href={repositorio.html_url}
+                    href={repositorio?.html_url}
                     target="blank"
                     className="btn btn-secondary btn-sm"
                     style={{

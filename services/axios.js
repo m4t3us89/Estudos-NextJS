@@ -1,9 +1,9 @@
 import axios from "axios";
 import NProgress from "nprogress";
 
-const api = axios.create({
-  baseURL: process.env.API,
-});
+const api = axios.create(
+  //baseURL: process.env.API,
+);
 
 api.interceptors.request.use(
   function (config) {
