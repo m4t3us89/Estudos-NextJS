@@ -1,6 +1,6 @@
 import Router from "next/router";
 import Link from "next/link";
-import Head from "next/head";
+
 
 import NProgress from "nprogress";
 import ThemeContainer from "../contexts/theme/ThemeContainer";
@@ -46,11 +46,11 @@ function App({ Component, pageProps }) {
             justify="center"
             padding="5px 0px 0 5px"
           >
-            <Link href="/">PROJETOS</Link>
-            <Link href="/quem-sou">QUEM SOU ?</Link>
+            <Link href="/"><a>PROJETOS</a></Link>
+            <Link href="/quem-sou"><a>QUEM SOU ?</a></Link>
           </Flex>
           <Flex
-            bg="blue.50"
+            width="90%"
             align="center"
             justify="center"
             alignItems="center"
