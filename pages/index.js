@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import api from "./../services/axios";
-import styles from "../styles/Home.module.css";
 
 const baseUrlGitLab = process.env.BASE_URL_GITLAB;
 const baseUrlGitHub = process.env.BASE_URL_GITHUB;
@@ -79,7 +78,7 @@ function Home() {
   }
 
   return (
-    <div className={styles.homeContainer}>
+    <div>
       {perfis.length > 0 ? (
         <>
           <div
@@ -188,7 +187,7 @@ function Home() {
             </div>
           </div>
 
-          <div className={styles.cards}>
+          <div>
             {projetos.map((projeto, index) => (
               <div key={index} className="card">
                 <div className="card-body">

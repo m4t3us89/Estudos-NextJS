@@ -1,10 +1,10 @@
 import Router from "next/router";
 import Link from "next/link";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import NProgress from "nprogress";
 
-import "../styles/globals.css";
+import NProgress from "nprogress";
+import ThemeContainer from "../contexts/theme/ThemeContainer";
+import { Flex, Text, Box, Link as ChakraLink, Button } from "@chakra-ui/core";
 
 Router.events.on("routeChangeStart", function (url) {
   console.log(`Loading: ${url}`);
@@ -21,26 +21,8 @@ Router.events.on("routeChangeError", function () {
 
 function App({ Component, pageProps }) {
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="stylesheet" type="text/css" href="/nprogress.css" />
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
-          crossorigin="anonymous"
-        ></link>
-        <link
-          rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-          crossorigin="anonymous"
-        ></link>
-      </Head>
-
-      <nav className={styles.nav}>
+    <div>
+      {/*<nav className={styles.nav}>
         <ul className={styles.menu}>
           <li>
             <Link href="/">
@@ -53,14 +35,42 @@ function App({ Component, pageProps }) {
             </Link>
           </li>
         </ul>
-      </nav>
+      </nav>*/}
 
-      <main className={styles.main}>
-        <div id="teste"></div>
-        <Component {...pageProps} />
-      </main>
+      <ThemeContainer>
+        <Flex align="center" flexDirection="column" height="100vh" width="100%">
+          <Flex
+            height="10"
+            width="100%"
+            gridGap="50px"
+            justify="center"
+            padding="5px 0px 0 5px"
+          >
+            <Link href="/">PROJETOS</Link>
+            <Link href="/quem-sou">QUEM SOU ?</Link>
+          </Flex>
+          <Flex
+            bg="blue.50"
+            align="center"
+            justify="center"
+            alignItems="center"
+            flex="1"
+          >
+            <Component {...pageProps} />
+          </Flex>
+          <Flex
+            height="10"
+            width="100%"
+            gridGap="50px"
+            justify="center"
+            padding="5px 0px 0 5px"
+          >
+            <Text>Footer</Text>
+          </Flex>
+        </Flex>
+      </ThemeContainer>
 
-      <footer className={styles.footer}>
+      {/*<footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
@@ -69,7 +79,7 @@ function App({ Component, pageProps }) {
           Powered by{" "}
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
-      </footer>
+      </footer>*/}
     </div>
   );
 }
