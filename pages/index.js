@@ -86,7 +86,7 @@ function Home() {
       title,
       description,
       status,
-      postion,
+      position,
       duration: 9000,
       isClosable: true,
     });

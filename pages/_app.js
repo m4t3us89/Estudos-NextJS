@@ -23,7 +23,7 @@ function App({ Component, pageProps }) {
     <ThemeContainer>
       <Flex align="center" flexDirection="column" height="100vh" width="100%">
         <Box
-          postion="fixed"
+          position="fixed"
           d="flex"
           p={4}
           width="100%"
