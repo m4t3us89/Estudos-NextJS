@@ -1,7 +1,6 @@
 import Router from "next/router";
 import Link from "next/link";
 
-
 import NProgress from "nprogress";
 import ThemeContainer from "../contexts/theme/ThemeContainer";
 import { Flex, Text, Box, Link as ChakraLink, Button } from "@chakra-ui/core";
@@ -46,8 +45,12 @@ function App({ Component, pageProps }) {
             justify="center"
             padding="5px 0px 0 5px"
           >
-            <Link href="/"><a>PROJETOS</a></Link>
-            <Link href="/quem-sou"><a>QUEM SOU ?</a></Link>
+            <Link href="/">
+              <a>PROJETOS</a>
+            </Link>
+            <Link href="/quem-sou">
+              <a>QUEM SOU ?</a>
+            </Link>
           </Flex>
           <Flex
             width="90%"
