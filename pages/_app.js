@@ -31,7 +31,6 @@ function App({ Component, pageProps }) {
           justifyContent="center"
           alignItems="center"
           bg="gray.600"
-          mb="5"
         >
           <Link href="/">
             <a>PROJETOS</a>
@@ -46,6 +45,7 @@ function App({ Component, pageProps }) {
           justify="center"
           alignItems="center"
           flex="1"
+          mt={20}
         >
           <Component {...pageProps} />
         </Flex>
