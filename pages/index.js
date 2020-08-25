@@ -81,11 +81,12 @@ function Home() {
     listarUsuarios();
   }, []);
 
-  function showToast(title, description, status) {
+  function showToast(title, description, status, position = "top-right") {
     toast({
       title,
       description,
       status,
+      postion,
       duration: 9000,
       isClosable: true,
     });
