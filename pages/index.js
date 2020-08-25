@@ -4,11 +4,10 @@ import {
   Flex,
   Text,
   Box,
-  Feature,
-  Stack,
   Heading,
   Grid,
   useToast,
+  Icon,
 } from "@chakra-ui/core";
 
 const baseUrlGitLab = process.env.BASE_URL_GITLAB;
@@ -27,7 +26,7 @@ function Home() {
   const [projetos, setProjeto] = useState([]);
   const [perfis, setPerfil] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const toas = useToast();
+  const toast = useToast();
 
   useEffect(() => {
     async function listarUsuarios() {
@@ -82,20 +81,30 @@ function Home() {
     listarUsuarios();
   }, []);
 
+  function showToast(title, description, status) {
+    toast({
+      title,
+      description,
+      status,
+      duration: 9000,
+      isClosable: true,
+    });
+  }
+
   function removerProjeto(index) {
     const arr = [...projetos];
     arr.splice(index, 1);
     setProjeto(arr);
+    showToast(
+      "Projeto removido",
+      "Seu projeto foi removido com sucesso.",
+      "success"
+    );
   }
 
   function CreatePerfis(title) {
     return (
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        gridGap="30px"
-        marginTop="40px"
-      >
+      <Flex alignItems="center" justifyContent="center" gridGap="30px" mt={10}>
         <a href={title?.html_url} target="blank">
           <svg
             className="octicon octicon-mark-github v-align-middle"
@@ -182,6 +191,7 @@ function Home() {
             width={["100%", "430px"]}
             height="300px"
             rounded="md"
+            bg="gray.600"
           >
             <Heading fontSize="xl" textAlign="center">
               <Text>{perfis[0]?.name}</Text>
@@ -198,7 +208,25 @@ function Home() {
             gap={["10px", "50px"]}
           >
             {projetos.map((projeto, index) => (
-              <Box p={4} shadow="md" borderWidth="1px" rounded="md" key={index}>
+              <Box
+                p={4}
+                shadow="md"
+                borderWidth="1px"
+                rounded="lg"
+                key={index}
+                bg="gray.700"
+                d="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+              >
+                <Icon
+                  name="close"
+                  alignSelf="flex-end"
+                  size="10px"
+                  color="red.500"
+                  cursor="pointer"
+                  onClick={() => removerProjeto(index)}
+                />
                 <Heading fontSize="md" textAlign="center">
                   <Text>{projeto?.name}</Text>
                 </Heading>
@@ -207,6 +235,15 @@ function Home() {
                     ? projeto?.description
                     : "Não há descrição"}
                 </Text>
+
+                <Icon
+                  alignSelf="flex-end"
+                  name="view"
+                  size="18px"
+                  color="white.500"
+                  cursor="pointer"
+                  onClick={() => window.open(projeto?.html_url, "_blank")}
+                />
               </Box>
             ))}
           </Grid>

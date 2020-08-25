@@ -4,7 +4,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <title>Teste</title>
+        <title>Quem sou?</title>
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
