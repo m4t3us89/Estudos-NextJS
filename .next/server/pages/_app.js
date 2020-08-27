@@ -131,7 +131,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var emotion_theming__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! emotion-theming */ "emotion-theming");
 /* harmony import */ var emotion_theming__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(emotion_theming__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _styles_theme__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../styles/theme */ "./styles/theme.js");
-var _jsxFileName = "E:\\Estudos-NextJS\\contexts\\theme\\ThemeContainer.js";
+var _jsxFileName = "C:\\Users\\allis\\Desktop\\Projetos\\Estudos-NextJS\\contexts\\theme\\ThemeContainer.js";
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 
 
@@ -2232,7 +2232,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _contexts_theme_ThemeContainer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../contexts/theme/ThemeContainer */ "./contexts/theme/ThemeContainer.js");
 /* harmony import */ var _chakra_ui_core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @chakra-ui/core */ "@chakra-ui/core");
 /* harmony import */ var _chakra_ui_core__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_chakra_ui_core__WEBPACK_IMPORTED_MODULE_5__);
-var _jsxFileName = "E:\\Estudos-NextJS\\pages\\_app.js";
+var _jsxFileName = "C:\\Users\\allis\\Desktop\\Projetos\\Estudos-NextJS\\pages\\_app.js";
 
 var __jsx = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement;
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import api from "./../services/axios";
 import useSWR from "swr";
 
+
 import {
   Flex,
   Text,
@@ -25,7 +26,9 @@ const iconesLinguagem = {
   CSS: `<img src="https://img.icons8.com/ios/${tamanhoIcone}/000000/css.png"/>`,
 };
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+//const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = url => api.get(url).then(res => res.data)
+
 /*
 export async function getStaticProps() {
   const posts = await fetcher(`${baseUrlGitHub}users`);
@@ -38,18 +41,25 @@ function Home() {
   const [since, setSince] = useState(0);
   const { data: usuarios, error } = useSWR(
     `${baseUrlGitHub}users?since=${since}`,
-    fetcher
-    //{ refreshInterval: 3000 }
+    fetcher,
+    {errorRetryInterval : 60000}
   );
 
-  /*const isLoadingInitialData = !data && !error;
-  const isLoadingMore =
-    isLoadingInitialData ||
-    (size > 0 && data && typeof data[size - 1] === "undefined");*/
+ 
 
   useEffect(() => {
-    if (usuarios || error) console.log("swr", usuarios ? usuarios : error);
-  }, [usuarios]);
+    if (usuarios) console.log("swr SUCESSO", usuarios ? usuarios : error);
+    
+    if(error){
+      console.log("swr ERROR", error?.response)
+      showToast(
+        "Falha na comunicação com o GITHUB",
+        error?.response?.data?.message,
+        "error"
+      );
+    }
+  }, [usuarios, error]);
+
 
   const [projetos, setProjeto] = useState([]);
   const [perfis, setPerfil] = useState([]);
@@ -75,14 +85,14 @@ function Home() {
 
         setPerfil(todosPerfis);
       } catch (Err) {
-        console.log("err", Err);
+        console.log("err", Err?.response?.status);
       }
     }
 
     async function listarRepositorios() {
       try {
         const { data: repGitHub } = await api.get(
-          `${baseUrlGitHub}users/m4t3us89/repos`
+          `${baseUrlGitHub}/users/m4t3us89/repos`
         );
 
         console.log("RepGitHub", repGitHub);
@@ -101,12 +111,13 @@ function Home() {
 
         setProjeto(todosProjetos);
       } catch (Err) {
-        console.log("err", Err);
+        console.log("errRepositorios", Err?.response?.status);
       }
     }
 
-    listarRepositorios();
-    listarUsuarios();
+  
+    listarRepositorios()
+    listarUsuarios()
   }, []);
 
   function showToast(title, description, status, position = "top-right") {
@@ -211,19 +222,20 @@ function Home() {
       flexDirection={["column", "row"]}
       width="100%"
     >
-      <Box d="flex" flexDirection="column" gridGap={4}>
+      <Box d="flex" flexDirection="column" gridGap={4} >
         <Button
           variantColor="teal"
-          size="md"
+          size="sm"
+          
           onClick={() => setSince(since + 45)}
           isDisabled={!usuarios && !error}
         >
-          {!usuarios && !error ? "Carregando..." : "Usuarios"}
+          {!usuarios && !error ? "Carregando" : "Usuarios" }
         </Button>
-        {usuarios &&
-          usuarios.map((item) => (
-            <Box size={20}>
-              <img src={item.avatar_url} />
+        { !error && usuarios &&
+          usuarios.map((item, index) => (
+            <Box key={index} rounded="full">
+              <img src={item.avatar_url}   />
             </Box>
           ))}
       </Box>
