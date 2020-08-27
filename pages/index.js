@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import api from "./../services/axios";
+import useSWR from "swr";
+
 import {
   Flex,
   Text,
@@ -8,6 +10,7 @@ import {
   Grid,
   useToast,
   Icon,
+  Button,
 } from "@chakra-ui/core";
 
 const baseUrlGitLab = process.env.BASE_URL_GITLAB;
@@ -22,7 +25,32 @@ const iconesLinguagem = {
   CSS: `<img src="https://img.icons8.com/ios/${tamanhoIcone}/000000/css.png"/>`,
 };
 
+const fetcher = (url) => fetch(url).then((res) => res.json());
+/*
+export async function getStaticProps() {
+  const posts = await fetcher(`${baseUrlGitHub}users`);
+
+  return { props: { posts } };
+}*/
+
 function Home() {
+  //const { data } = useSWR("/api/posts", fetcher, { initialData: props.posts });
+  const [since, setSince] = useState(0);
+  const { data: usuarios, error } = useSWR(
+    `${baseUrlGitHub}users?since=${since}`,
+    fetcher
+    //{ refreshInterval: 3000 }
+  );
+
+  /*const isLoadingInitialData = !data && !error;
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && data && typeof data[size - 1] === "undefined");*/
+
+  useEffect(() => {
+    if (usuarios || error) console.log("swr", usuarios ? usuarios : error);
+  }, [usuarios]);
+
   const [projetos, setProjeto] = useState([]);
   const [perfis, setPerfil] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -183,6 +211,22 @@ function Home() {
       flexDirection={["column", "row"]}
       width="100%"
     >
+      <Box d="flex" flexDirection="column" gridGap={4}>
+        <Button
+          variantColor="teal"
+          size="md"
+          onClick={() => setSince(since + 45)}
+          isDisabled={!usuarios && !error}
+        >
+          {!usuarios && !error ? "Carregando..." : "Usuarios"}
+        </Button>
+        {usuarios &&
+          usuarios.map((item) => (
+            <Box size={20}>
+              <img src={item.avatar_url} />
+            </Box>
+          ))}
+      </Box>
       {projetos.length > 0 ? (
         <>
           <Box
