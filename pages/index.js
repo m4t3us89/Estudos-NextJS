@@ -92,7 +92,7 @@ function Home() {
     async function listarRepositorios() {
       try {
         const { data: repGitHub } = await api.get(
-          `${baseUrlGitHub}/users/m4t3us89/repos`
+          `${baseUrlGitHub}users/m4t3us89/repos`
         );
 
         console.log("RepGitHub", repGitHub);
@@ -223,19 +223,20 @@ function Home() {
       width="100%"
     >
       <Box d="flex" flexDirection="column" gridGap={4} >
-        <Button
+        {!error && usuarios  ? (<Button width={['100%','100px']}
           variantColor="teal"
           size="sm"
           
           onClick={() => setSince(since + 45)}
           isDisabled={!usuarios && !error}
         >
-          {!usuarios && !error ? "Carregando" : "Usuarios" }
+          {!usuarios && !error ? "Aguarde..." : "Usuarios" }
         </Button>
+        ) : null }
         { !error && usuarios &&
           usuarios.map((item, index) => (
-            <Box key={index} rounded="full">
-              <img src={item.avatar_url}   />
+            <Box key={index} rounded="full" width={['100%','100px']}>
+              <img src={item.avatar_url}  style={{cursor:'pointer'}} onClick={()=>window.open(item.html_url , '_blank')} />
             </Box>
           ))}
       </Box>
